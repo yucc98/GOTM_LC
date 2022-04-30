@@ -1,0 +1,10 @@
+# The fortran modules provided by this target.
+provides
+ cvmix_energetic_pbl.mod
+ cvmix_kappa_shear.mod
+ epbl_aux.mod
+ epbl_gotm.mod
+ kpp.mod
+ langmuir.mod
+ turbulence.mod
+ zdfosm.mod

@@ -1,0 +1,1 @@
+/public/software/compiler/intel/composer_xe_2015.2.164/bin/intel64/ifort  -L$NETCDF/lib -m64 -O3 CMakeFiles/test_airsea.dir/airsea/test_airsea.F90.o  -o test_airsea  libutil.a libairsea.a libinput.a libutil.a 

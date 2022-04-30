@@ -1,0 +1,1 @@
+/public/software/compiler/intel/composer_xe_2015.2.164/bin/intel64/ifort  -L$NETCDF/lib -m64 -O3 CMakeFiles/test_eqstate.dir/util/test_eqstate.F90.o  -o test_eqstate  libutil.a 

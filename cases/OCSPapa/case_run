@@ -1,0 +1,119 @@
+#!/bin/bash
+# Run GOTM using preprocessed data for OCS Papa
+# Require a base case which contains the preprocessed input data
+# and namelist, e.g., as a result of case_test
+#
+# Qing Li, 20180504
+
+#######################################################################
+#                              Set paths                              #
+#######################################################################
+
+# setup paths and tools
+source "../../set_tools.sh"
+
+# directory of base case
+basecase="${GOTMWORK_ROOT}/data/OCSPapa_20120101-20131204"
+
+# current path
+curdir=$(pwd)
+
+#######################################################################
+#                           Set parameters                            #
+#######################################################################
+
+# name of the dataset
+#title="OCSPapa_noheat"
+title="OCSPapa"
+
+# set levels, grid zooming at surface
+nlev=128
+ddu=0
+ddl=0
+
+#heatflux=0
+# run parameters
+dt=1800
+nsave=6
+
+# starting and ending date - in the format of YYYYMMDD
+datestart="20120321"
+dateend="20130320"
+
+# name of the turbulence model
+# turbmethod="KPP-GOTM"
+# turbmethod="KPP-CVMix"
+# turbmethod="KPP-ROMS"
+# turbmethod="KPPLT-EFACTOR"
+# turbmethod="KPPLT-ENTR"
+# turbmethod="KPPLT-RWHGK"
+# turbmethod="EPBL"
+# turbmethod="EPBL-LT"
+# turbmethod="SMC"
+# turbmethod="SMC-KC04"
+# turbmethod="SMC-C01A"
+# turbmethod="SMC-C01A-lt"
+# turbmethod="SMC-C01A-lt-iw"
+# turbmethod="SMC-C01A-iw"
+ turbmethod="SMCLT"
+# turbmethod="SMCLT-iw"
+# turbmethod="SMC-YU18"
+# turbmethod="SMCOP"
+
+# output file name
+outname="gotm_out"
+
+# case name
+casename="${title}_${turbmethod}_${datestart}-${dateend}"
+
+#######################################################################
+#                        Preprocess input data                        #
+#######################################################################
+
+# create run directory
+rundir="${GOTMRUN_ROOT}/${casename}"
+mkdir -p ${rundir}
+cd ${rundir}
+
+# copy base case
+cp ${basecase}/* ./
+
+# decompress input data
+for f in *.gz; do
+    gunzip -f ${f}
+done
+
+# set run parameters
+start_time="${datestart:0:4}-${datestart:4:2}-${datestart:6:2} 00:00:00"
+stop_time="${dateend:0:4}-${dateend:4:2}-${dateend:6:2} 00:00:00"
+${cmd_nmlchange} -f gotmrun.nml -e start -v "${start_time}"
+${cmd_nmlchange} -f gotmrun.nml -e stop -v "${stop_time}"
+${cmd_nmlchange} -f gotmrun.nml -e title -v ${title}
+${cmd_nmlchange} -f gotmrun.nml -e out_fn -v ${outname}
+${cmd_nmlchange} -f gotmrun.nml -e dt -v ${dt}
+${cmd_nmlchange} -f gotmrun.nml -e nsave -v ${nsave}
+${cmd_nmlchange} -f gotmrun.nml -e nlev -v ${nlev}
+${cmd_nmlchange} -f gotmmean.nml -e ddu -v ${ddu}
+${cmd_nmlchange} -f gotmmean.nml -e ddl -v ${ddl}
+
+#${cmd_nmlchange} -f airsea.nml -e const_heat -v ${heatflux}
+#${cmd_nmlchange} -f airsea.nml -e heat_method -v 0
+#${cmd_nmlchange} -f airsea.nml -e swr_method -v 0
+#${cmd_nmlchange} -f airsea.nml -e precip_method -v 0
+
+${cmd_nmlchange} -f obs.nml -e vel_relax_tau -v 864000.
+
+# set turbulence method
+source ${scpt_case_turbmethod}
+
+#######################################################################
+#                              Run GOTM                               #
+#######################################################################
+${cmd_gotm} 2> log.${outname}
+
+#######################################################################
+#                           Postprocessing                            #
+#######################################################################
+#exit
+# plot surface forcing and profiles
+#source ${curdir}/case_postproc.sh

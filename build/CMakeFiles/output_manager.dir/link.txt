@@ -1,0 +1,2 @@
+/usr/bin/ar qc liboutput_manager.a  CMakeFiles/output_manager.dir/output/output_manager.F90.o CMakeFiles/output_manager.dir/output/output_manager_core.F90.o CMakeFiles/output_manager.dir/output/netcdf_output.F90.o CMakeFiles/output_manager.dir/output/text_output.F90.o yaml/CMakeFiles/yaml.dir/yaml_types.F90.o yaml/CMakeFiles/yaml.dir/yaml.F90.o
+/usr/bin/ranlib liboutput_manager.a

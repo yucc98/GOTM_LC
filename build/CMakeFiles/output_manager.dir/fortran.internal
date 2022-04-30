@@ -1,0 +1,6 @@
+# The fortran modules provided by this target.
+provides
+ netcdf_output.mod
+ output_manager.mod
+ output_manager_core.mod
+ text_output.mod
