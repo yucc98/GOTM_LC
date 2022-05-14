@@ -141,9 +141,9 @@ add_library(turbulence
             turbulence/cmue_a.F90
             turbulence/cmue_b.F90
             turbulence/cmue_c.F90
-            turbulence/cmue_c_lt.F90
             turbulence/cmue_d.F90
             turbulence/cmue_d_h15.F90
+            turbulence/cmue_d_y22.F90
             turbulence/cmue_ma.F90
             turbulence/cmue_rf.F90
             turbulence/cmue_sg.F90
@@ -164,7 +164,7 @@ add_library(turbulence
             turbulence/kbalgebraic.F90
             turbulence/kbeq.F90
             turbulence/kpp.F90
-	    turbulence/Langmuir.F90
+					  turbulence/Langmuir.F90
             turbulence/lengthscaleeq.F90
             turbulence/lengthscaleeq_kc04.F90
             turbulence/potentialml.F90

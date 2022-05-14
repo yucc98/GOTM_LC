@@ -2344,8 +2344,7 @@
       case (quasiEqlt)
 
          call alpha_mvwnb(nlev,NN,SS,CSSTK,SSSTK)
-         call cmue_d_h15(nlev,stokes_level)
-!         call cmue_c_lt(nlev)
+         call cmue_d_y22(nlev)
          call do_tke(nlev,dt,u_taus,u_taub,z0s,z0b,h,NN,SS)
          call do_kb(nlev,dt,u_taus,u_taub,z0s,z0b,h,NN,SS)
          call do_lengthscale(nlev,dt,depth,u_taus,u_taub,z0s,z0b,h,NN,SS)
@@ -2368,8 +2367,7 @@
 
          call surface_proximity_function(nlev,depth,h)
          call alpha_mvwnb(nlev,NN,SS,CSSTK,SSSTK)
-         call cmue_d_h15(nlev,stokes_level)
-!         call cmue_c_lt(nlev)
+         call cmue_d_h15(nlev)
          call do_tke(nlev,dt,u_taus,u_taub,z0s,z0b,h,NN,SS)
          call do_kb(nlev,dt,u_taus,u_taub,z0s,z0b,h,NN,SS)
          call do_lengthscale(nlev,dt,depth,u_taus,u_taub,z0s,z0b,h,NN,SS)

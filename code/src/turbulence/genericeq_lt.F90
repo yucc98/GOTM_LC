@@ -171,7 +171,7 @@
    REALTYPE                  :: psi(0:nlev)
    REALTYPE                  :: avh(0:nlev)
    REALTYPE                  :: Lsour(0:nlev),Qsour(0:nlev)
-   REALTYPE                  :: cpsi3,cpsi6
+   REALTYPE                  :: cpsi3
 
    REALTYPE                  :: sl
 
@@ -210,7 +210,6 @@
       end if
 
 !     compute production terms in psi-equation U03a eq.(6)
-      cpsi6       = 3.0   ! e6/2
       PsiOverTke  = psi(i)/tkeo(i)
       prod        = cpsi1*PsiOverTke*P(i)+PsiOverTke*PS(i)*e6
       buoyan      = cpsi3*PsiOverTke*B(i)
